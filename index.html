@@ -95,6 +95,13 @@
     color:var(--muted);
     display:flex; align-items:center; gap:6px; justify-content:flex-end;
   }
+  .sync-tag{
+    margin-top:3px;
+    font-size: clamp(10px, 0.85vw, 11.5px);
+    color:var(--muted-2);
+    font-weight:600;
+  }
+  .sync-tag.sync-bad{ color:var(--amber); }
   .dot{
     width:7px;height:7px;border-radius:50%;
     background:var(--amber);
@@ -467,6 +474,7 @@
     <div class="headstats">
       <div class="period" id="periodLabel">—</div>
       <div class="updated"><span class="dot"></span><span id="updatedLabel">—</span></div>
+      <div class="sync-tag" id="syncStatus">Connecting to GitHub…</div>
     </div>
   </header>
 
@@ -1007,7 +1015,8 @@
       }
       state.mode = 'deals';
       state.rows = result.rows;
-      state.sourceName = file.name;
+      state.sourceName = file.name + ' (manual)';
+      lastGithubHash = null; // force a resync from GitHub on the next poll
       renderAll();
       showToast(`Updated — ${result.rows.length} commercial sale${result.rows.length===1?'':'s'} loaded from ${file.name}`);
     };
@@ -1035,7 +1044,8 @@
         }
         state.mode = 'aggregate';
         state.aggregate = { fronters: result.fronters, closers: result.closers, weekLabel: result.weekLabel };
-        state.sourceName = file.name;
+        state.sourceName = file.name + ' (manual)';
+        lastGithubHash = null; // force a resync from GitHub on the next poll
         renderAll();
         const totalClosed = result.closers.reduce((s,c) => s + DAY_KEYS.reduce((a,k) => a + (Number(c[k])||0), 0), 0);
         showToast(`Updated — Dashboard tab loaded from ${file.name} (${totalClosed} closed sale${totalClosed===1?'':'s'} this week)`);
@@ -1079,7 +1089,69 @@
     e.target.value = '';
   });
 
+  // ---------- GitHub auto-sync ----------
+  // Push an updated Commercial Day Stat workbook to this exact path (same filename,
+  // overwritten each time) in the repo below, and every open dashboard picks it up
+  // automatically within one poll interval — no drag-and-drop needed.
+  const GITHUB_SOURCE = {
+    owner: 'cmprocallhub',
+    repo: 'CallCenter-Dashboard',
+    branch: 'main',
+    path: 'data/commercial-day-stat.xlsx',
+    pollMs: 3 * 60 * 1000 // check every 3 minutes
+  };
+
+  let lastGithubHash = null;
+
+  function githubRawUrl(){
+    return `https://raw.githubusercontent.com/${GITHUB_SOURCE.owner}/${GITHUB_SOURCE.repo}/${GITHUB_SOURCE.branch}/${GITHUB_SOURCE.path}?_=${Date.now()}`;
+  }
+
+  function setSyncStatus(ok, detail){
+    const el = $('syncStatus');
+    if(!el) return;
+    if(ok){
+      const now = new Date();
+      el.textContent = 'Synced with GitHub · ' + now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+      el.classList.remove('sync-bad');
+    } else {
+      el.textContent = detail || 'GitHub sync issue — showing last known data';
+      el.classList.add('sync-bad');
+    }
+  }
+
+  async function pollGithub(){
+    try{
+      const res = await fetch(githubRawUrl(), { cache: 'no-store' });
+      if(!res.ok){
+        setSyncStatus(false, res.status === 404
+          ? `No file yet at ${GITHUB_SOURCE.path} — push one to start syncing`
+          : `GitHub returned ${res.status}`);
+        return;
+      }
+      const buf = await res.arrayBuffer();
+      const result = parseXLSXWorkbook(new Uint8Array(buf), GITHUB_SOURCE.path.split('/').pop());
+      if(result.error){
+        setSyncStatus(false, 'Could not read the workbook at that path — check it still has a Dashboard tab');
+        return;
+      }
+      const hash = JSON.stringify(result.fronters) + '|' + JSON.stringify(result.closers);
+      if(hash !== lastGithubHash){
+        lastGithubHash = hash;
+        state.mode = 'aggregate';
+        state.aggregate = { fronters: result.fronters, closers: result.closers, weekLabel: result.weekLabel };
+        state.sourceName = GITHUB_SOURCE.path.split('/').pop();
+        renderAll();
+      }
+      setSyncStatus(true);
+    } catch(err){
+      setSyncStatus(false, 'Network error reaching GitHub');
+    }
+  }
+
   renderAll();
+  pollGithub();
+  setInterval(pollGithub, GITHUB_SOURCE.pollMs);
   setInterval(() => {
     const now = new Date();
     const parts = $('updatedLabel').textContent.split('  ·  ');
