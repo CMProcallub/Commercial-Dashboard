@@ -183,62 +183,8 @@
   .mini.cyan .n{ color:var(--cyan); }
   .mini.coral .n{ color:var(--coral); }
 
-  /* ---------- DAY BREAKDOWN ---------- */
-  .daybreak{ flex: 0 0 auto; }
-  .daybars{
-    display:flex;
-    align-items:flex-end;
-    gap: clamp(10px,1.4vw,20px);
-    height: clamp(80px, 13vh, 140px);
-    margin-top: clamp(8px,1.2vh,14px);
-  }
-  .day-col{
-    flex:1;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .day-count{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size: clamp(14px, 1.3vw, 20px);
-    color:var(--text);
-    margin-bottom:6px;
-  }
-  .day-bar-wrap{
-    flex:1;
-    width:100%;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-  }
-  .day-bar{
-    width:56%;
-    min-height:3px;
-    border-radius:6px 6px 2px 2px;
-    background: linear-gradient(180deg, var(--amber), rgba(253,83,57,0.22));
-    transition: height .5s ease;
-  }
-  .day-label{
-    margin-top:8px;
-    font-size: clamp(10.5px, 0.85vw, 12.5px);
-    color:var(--muted);
-    font-weight:600;
-    letter-spacing:0.03em;
-  }
-  .day-col.peak .day-bar{ background: linear-gradient(180deg, var(--cyan), rgba(236,232,218,0.22)); }
-  .day-col.peak .day-count{ color:var(--cyan); }
-  .day-col.zero .day-count{ color:var(--muted-2); }
-
-  /* ---------- MAIN TWO COLUMN ---------- */
-  .main-row{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(10px,1.2vw,16px);
-    flex: 1 1 auto;
-    min-height: 220px;
-  }
+  /* ---------- COMMERCIAL CLONE TABLE ---------- */
+  .clone-panel{ flex: 1 1 auto; min-height: 280px; }
   .panel{
     background:var(--panel);
     border:1px solid var(--line);
@@ -257,99 +203,58 @@
     color:var(--muted);
     font-weight:500;
   }
-  .board{
+  .clone-wrap{
     margin-top: clamp(8px,1.2vh,14px);
-    display:flex; flex-direction:column;
-    gap: clamp(7px,1vh,11px);
-    overflow-y:auto;
-    padding-right:4px;
+    flex:1;
+    overflow:auto;
+    border-radius:10px;
+    border:1px solid var(--line);
   }
-  .row-item{ display:flex; align-items:center; gap:10px; }
-  .rank{
-    font-family:'Space Grotesk',sans-serif;
-    width: clamp(18px,1.5vw,24px);
-    font-size: clamp(11px,0.9vw,13px);
-    color:var(--muted-2);
-    font-weight:600;
-    flex:none;
-  }
-  .row-main{ flex:1; min-width:0; }
-  .row-top{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
-  .row-name{
-    font-size: clamp(12.5px, 1vw, 14.5px);
-    font-weight:600;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
-  .row-name .house-tag{
-    font-weight:500; color:var(--muted); font-size:0.85em; margin-left:5px;
-  }
-  .row-count{
-    font-family:'Space Grotesk',sans-serif;
-    font-size: clamp(13px, 1.05vw, 15px);
-    font-weight:700;
-    color:var(--text);
-    flex:none;
-  }
-  .bar-track{
-    margin-top:5px;
-    height:6px; border-radius:4px;
-    background:rgba(255,255,255,0.06);
-    overflow:hidden;
-  }
-  .bar-fill{
-    height:100%; border-radius:4px;
-    background: linear-gradient(90deg, var(--amber), #ff9a7f);
-    transition: width .5s ease;
-  }
-  .closers .bar-fill{ background: linear-gradient(90deg, var(--cyan), #fbf9f2); }
-  .row-item.house .bar-fill{ background: repeating-linear-gradient(45deg, var(--muted-2), var(--muted-2) 4px, transparent 4px, transparent 8px); }
-  .row-item.house .row-count, .row-item.house .row-name{ color:var(--muted); }
-  .row-item.self .row-name{ color:var(--coral); }
-
-  /* ---------- CORRELATION ---------- */
-  .corr{
-    flex: 0 0 auto;
-    max-height: 27vh;
-  }
-  .corr .board{ overflow:auto; }
-  table.matrix{
-    border-collapse:separate;
-    border-spacing:4px;
-    font-size: clamp(10.5px, 0.82vw, 12.5px);
+  table.clone{
+    border-collapse:collapse;
     width:100%;
+    font-size: clamp(10.5px, 0.78vw, 12.5px);
   }
-  table.matrix th, table.matrix td{
+  table.clone th, table.clone td{
+    padding: 6px 10px;
     text-align:center;
     white-space:nowrap;
   }
-  table.matrix thead th{
+  table.clone thead th{
     color:var(--muted);
+    font-family:'Space Grotesk',sans-serif;
     font-weight:600;
-    padding: 4px 8px;
-    max-width:110px;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    position:sticky; top:0;
+    background:var(--panel);
+    z-index:2;
   }
-  table.matrix thead th.corner{ background:transparent; }
-  table.matrix tbody th{
-    text-align:right;
+  table.clone thead tr.grp th{ border-bottom:1px solid var(--line); padding-top:8px; }
+  table.clone thead tr.grp th.day-hdr{ color:var(--text); font-weight:700; background:var(--amber-dim); }
+  table.clone thead tr.sub th{ font-weight:500; font-size:0.86em; padding-top:4px; padding-bottom:8px; }
+  table.clone tbody th{
+    text-align:left;
+    font-weight:700;
     color:var(--text);
-    font-weight:600;
-    padding-right:10px;
-    max-width:140px;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    position:sticky; left:0;
+    background:var(--panel);
+    z-index:1;
+    padding-right:16px;
   }
-  table.matrix td{
-    padding: 8px 10px;
-    border-radius:6px;
-    background: rgba(255,255,255,0.035);
+  table.clone tbody tr:nth-child(even) td,
+  table.clone tbody tr:nth-child(even) th{ background:rgba(255,255,255,0.025); }
+  table.clone td.mono{ color:var(--muted); font-weight:500; }
+  table.clone td.hi{ font-weight:700; color:var(--text); }
+  table.clone td.empty{ color:var(--muted-2); font-weight:400; }
+  table.clone td.up{ color:var(--cyan); font-weight:700; }
+  table.clone td.down{ color:var(--coral); font-weight:700; }
+  table.clone td.divider, table.clone th.divider{ border-left:1px solid var(--line); }
+  table.clone tfoot th, table.clone tfoot td{
+    position:sticky; bottom:0;
+    border-top:2px solid var(--line);
+    font-weight:700;
     color:var(--text);
-    font-weight:600;
-    min-width:38px;
+    background:var(--panel-2);
   }
-  table.matrix td.empty{ color:var(--muted-2); font-weight:400; background:rgba(255,255,255,0.02); }
-  table.matrix td.self-close{ box-shadow: inset 0 0 0 1.5px var(--coral); }
 
   /* ---------- TICKER ---------- */
   .ticker{
@@ -482,7 +387,7 @@
     <div class="hero">
       <div class="label">CLOSED SALES</div>
       <div class="num display" id="heroNum">0</div>
-      <div class="sub">Counted by <b>closer</b> — every deal attributed once, to whoever closed it.</div>
+      <div class="sub">Total Wk sales, all reps — only <b>closed</b> sales count toward the department total, fronts are tracked separately.</div>
     </div>
     <div class="ministats">
       <div class="mini">
@@ -491,38 +396,22 @@
       </div>
       <div class="mini cyan">
         <div class="n display" id="statFronters">0</div>
-        <div class="l">ACTIVE FRONTERS</div>
+        <div class="l">ACTIVE AGENTS</div>
       </div>
       <div class="mini cyan">
         <div class="n display" id="statClosers">0</div>
-        <div class="l">ACTIVE CLOSERS</div>
+        <div class="l">TOTAL HOURS</div>
       </div>
       <div class="mini coral">
         <div class="n display" id="statSelf">0</div>
-        <div class="l" id="statSelfLabel">SELF-CLOSED (FRONT + CLOSE)</div>
+        <div class="l" id="statSelfLabel">TEAM SPH</div>
       </div>
     </div>
   </div>
 
-  <div class="panel daybreak">
-    <h2>Sales by Day <span class="tag">Mon–Fri, closed sales</span></h2>
-    <div class="daybars" id="dayBoard"></div>
-  </div>
-
-  <div class="main-row">
-    <div class="panel">
-      <h2>Fronter Sales <span class="tag">deals fronted, closed</span></h2>
-      <div class="board fronters" id="fronterBoard"></div>
-    </div>
-    <div class="panel">
-      <h2>Closer Sales <span class="tag">total sales — counted here</span></h2>
-      <div class="board closers" id="closerBoard"></div>
-    </div>
-  </div>
-
-  <div class="panel corr">
-    <h2>Closer Sales by Day <span class="tag">Mon–Fri, per closer — only closers count</span></h2>
-    <div class="board" id="closerDayWrap"></div>
+  <div class="panel clone-panel">
+    <h2>Commercial <span class="tag">cloned from the Commercial tab — Hrs / Front / Sales / SPH per day, per rep</span></h2>
+    <div class="clone-wrap" id="cloneWrap"></div>
   </div>
 
   <div class="ticker">
@@ -534,411 +423,96 @@
 <div id="dropOverlay">
   <div class="drop-box">
     <div class="t1 display">Drop file to update</div>
-    <div class="t2">Energy forms export CSV, or a Commercial Day Stat XLSX (Dashboard tab)</div>
+    <div class="t2">A Commercial Day Stat XLSX (Commercial tab)</div>
   </div>
 </div>
 
-<button id="updateBtn">⇪ Update data (drag CSV or XLSX anywhere, or click)</button>
-<input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none">
+<button id="updateBtn">⇪ Update data (drag XLSX anywhere, or click)</button>
+<input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none">
 <div id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-  // ---------- default datasets ----------
-  // Aggregate rep/day rows, from the "Dashboard" tab of Commercial_Day_Stat_9_14_26.xlsx
-  const DEFAULT_AGGREGATE = {
-    fronters: [
-      {"name":"Raven Mitchell","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Jakarta Hunter","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Luis Buitrago","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Abigail Gambino","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Allen Alberts","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Kenticka Tate","mon":2,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Brandy Paton","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Ashlee Franks","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Shelby Lewis","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Neil Singhal","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Albert Williams","mon":0,"tue":0,"wed":0,"thu":0,"fri":0}
-    ],
-    closers: [
-      {"name":"Abigail Gambino","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Allen Alberts","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"CJ Jackson","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Brandy Paton","mon":0,"tue":0,"wed":0,"thu":0,"fri":0},
-      {"name":"Neil Singhal","mon":2,"tue":0,"wed":0,"thu":0,"fri":0}
-    ],
-    weekLabel: 'Week of Sep 14, 2026'
-  };
+  // ---------- default dataset ----------
+  // Cloned from the "Commercial" tab of Commercial_Day_Stat_09.14.26_09.18.26.xlsx.
+  // That tab is the authoritative per-rep source (Hrs / Front / Sales / SPH per day,
+  // plus Bad TPV and week totals) -- unlike the old "Dashboard" tab, which had a
+  // history of #REF! breakage in its Closers block.
+  const DEFAULT_COMMERCIAL = Object.assign({ weekLabel: 'Week of Sep 14, 2026' }, {"reps": [{"name": "Raven Mitchell", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7.5, "front": null, "sales": 1, "resi": null, "sph": 0.13333333333333333, "mgw": null}, "wed": {"hrs": 6.75, "front": 3, "sales": 3, "resi": null, "sph": 0.4444444444444444, "mgw": null}, "thu": {"hrs": 6.75, "front": 2, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 1, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 4, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 4, "Last Week": 4, "Difference": 0, "Total Hrs": 35.5, "SPH": 0.11267605633802817, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Jakarta Hunter", "days": {"mon": {"hrs": 7, "front": null, "sales": 1, "resi": null, "sph": 0.14285714285714285, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 8, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 3.15, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 1, "Difference": 0, "Total Hrs": 32.9, "SPH": 0.030395136778115502, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Luis Buitrago", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 6.75, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.75, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 1, "Difference": -1, "Total Hrs": 35.5, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Allen Alberts", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.25, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 6.25, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 4, "Difference": -4, "Total Hrs": 35, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Kenticka Tate", "days": {"mon": {"hrs": 8, "front": null, "sales": 2, "resi": null, "sph": 0.25, "mgw": null}, "tue": {"hrs": 8, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.25, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": 1, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}, "fri": {"hrs": 7.75, "front": 2, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}}, "summary": {"Total COMP": 4, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 4, "Last Week": 4, "Difference": 0, "Total Hrs": 38.75, "SPH": 0.1032258064516129, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Brandy Paton", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7.5, "front": null, "sales": 1, "resi": null, "sph": 0.13333333333333333, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.75, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 1, "Difference": 0, "Total Hrs": 36.25, "SPH": 0.027586206896551724, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Ashlee Franks", "days": {"mon": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 6.75, "front": 4, "sales": 4, "resi": null, "sph": 0.5925925925925926, "mgw": null}, "thu": {"hrs": 6.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 6, "front": 0, "sales": 1, "resi": null, "sph": 0.16666666666666666, "mgw": null}}, "summary": {"Total COMP": 5, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 5, "Last Week": 0, "Difference": 5, "Total Hrs": 32.25, "SPH": 0.15503875968992248, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Shelby Lewis", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": 1, "resi": null, "sph": 0.14285714285714285, "mgw": null}, "wed": {"hrs": 7.5, "front": 2, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": 1, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}, "fri": {"hrs": 7.5, "front": 1, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 2, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 2, "Last Week": 1, "Difference": 1, "Total Hrs": 36.75, "SPH": 0.05442176870748299, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Albert Williams", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 6.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 1, "Difference": -1, "Total Hrs": 27.5, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Abigail Gambino", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 0, "front": null, "sales": 1, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 0, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 5, "Difference": -4, "Total Hrs": 0, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "CJ Jackson", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 0, "front": null, "sales": 1, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 0, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 0, "Difference": 1, "Total Hrs": 0, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Neil Singhal", "days": {"mon": {"hrs": 8, "front": null, "sales": 2, "resi": null, "sph": 0.25, "mgw": null}, "tue": {"hrs": 8, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.25, "front": 0, "sales": null, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 2, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 2, "Last Week": 5, "Difference": -3, "Total Hrs": 38.25, "SPH": 0.05228758169934641, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}], "totals": {"days": {"mon": {"hrs": 64.5, "front": 0, "sales": 5, "resi": null, "sph": 0.07751937984496124, "mgw": 0}, "tue": {"hrs": 72, "front": 0, "sales": 5, "resi": null, "sph": 0.06944444444444445, "mgw": 0}, "wed": {"hrs": 72, "front": 9, "sales": 7, "resi": null, "sph": 0.09722222222222222, "mgw": 0}, "thu": {"hrs": 71.5, "front": 4, "sales": 2, "resi": null, "sph": 0.027972027972027972, "mgw": 0}, "fri": {"hrs": 68.65, "front": 4, "sales": 2, "resi": null, "sph": 0.0291332847778587, "mgw": 0}}, "summary": {"Total COMP": 21, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 21, "Last Week": 15, "Difference": 6, "Total Hrs": 348.65, "SPH": 0.060232324680912094, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}});
 
-  // Deal-level rows, from the energy-forms-export CSV (kept so drag-and-drop of that
-  // file format still works — switches the dashboard back to per-deal detail)
-  const DEFAULT_ROWS = [{"fronter":"Neil Singhal","closer":"Neil Singhal","createdAt":"9/10/2026 5:50","customer":"Sarah Shumaker","state":"Ohio"},{"fronter":"Brandy Paton","closer":"Brandy Paton","createdAt":"9/10/2026 5:11","customer":"Heidi Stull","state":"Maryland"},{"fronter":"Raven Mitchell","closer":"Abigail Gambino","createdAt":"9/10/2026 3:49","customer":"Joe Stinger","state":"Ohio"},{"fronter":"Raven Mitchell","closer":"Abigail Gambino","createdAt":"9/10/2026 3:49","customer":"Joe Stinger","state":"Ohio"},{"fronter":"Luis Buitrago","closer":"PCH","createdAt":"9/10/2026 2:13","customer":"Mathew Forkenbrock","state":"Illinois"},{"fronter":"Albert Williams","closer":"PCH","createdAt":"9/9/2026 23:21","customer":"Robert Foster","state":"Illinois"},{"fronter":"Kenticka Tate","closer":"PCH","createdAt":"9/9/2026 4:13","customer":"Marlyta Lievore","state":"Massachusetts"},{"fronter":"Kenticka Tate","closer":"PCH","createdAt":"9/9/2026 4:13","customer":"Marlyta Lievore","state":"Massachusetts"},{"fronter":"Raven Mitchell","closer":"Abigail Gambino","createdAt":"9/9/2026 1:28","customer":"Beneul Lapp","state":"Pennsylvania"},{"fronter":"Neil Singhal","closer":"Neil Singhal","createdAt":"9/9/2026 0:40","customer":"Benny Sorbello","state":"Pennsylvania"},{"fronter":"Kenticka Tate","closer":"PCH","createdAt":"9/8/2026 7:33","customer":"Steve Corcoran","state":"Illinois"},{"fronter":"Jakarta Hunter","closer":"Abigail Gambino","createdAt":"9/8/2026 6:58","customer":"Elsie Nichols","state":"Pennsylvania"},{"fronter":"Kenticka Tate","closer":"Neil Singhal","createdAt":"9/8/2026 6:44","customer":"Miles Jacobs","state":"Maryland"},{"fronter":"Abigail Gambino","closer":"Abigail Gambino","createdAt":"9/8/2026 5:57","customer":"Brett Lister","state":"Florida"},{"fronter":"Neil Singhal","closer":"Neil Singhal","createdAt":"9/8/2026 4:26","customer":"Melinda Bailey","state":"Pennsylvania"},{"fronter":"Neil Singhal","closer":"Neil Singhal","createdAt":"9/8/2026 4:26","customer":"Melinda Bailey","state":"Pennsylvania"},{"fronter":"Raven Mitchell","closer":"Abigail Gambino","createdAt":"9/8/2026 2:45","customer":"Lidziya Luhauskaya","state":"Illinois"}];
-
-  // mode: 'aggregate' (rep x day, from a Dashboard-tab XLSX) or 'deals' (one row per sale, from a CSV export)
-  const state = { mode: 'aggregate', aggregate: DEFAULT_AGGREGATE, rows: DEFAULT_ROWS, sourceName: 'Commercial_Day_Stat_9_14_26.xlsx' };
+  const state = { commercial: DEFAULT_COMMERCIAL, sourceName: 'Commercial_Day_Stat_09.14.26_09.18.26.xlsx' };
 
   const $ = id => document.getElementById(id);
   const DAY_KEYS = ['mon','tue','wed','thu','fri'];
-  const DAY_FULL = ['Mon','Tue','Wed','Thu','Fri'];
+  const DAY_ABBR = { mon:'MON', tue:'TUE', wed:'WED', thu:'THU', fri:'FRI' };
+  const DAY_FULL = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday' };
 
-  function isHouse(name){ return name.trim().toLowerCase() === 'pch'; }
   function cleanRepName(raw){ return String(raw).split('(')[0].trim(); }
-
-  function parseDate(s){
-    if(!s) return null;
-    const d = new Date(s);
-    return isNaN(d.getTime()) ? null : d;
+  function num(v){ return (v == null || v === '') ? null : Number(v); }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
-
-  function fmtPeriod(dates){
-    if(!dates.length) return 'No dated rows';
-    const min = new Date(Math.min(...dates));
-    const max = new Date(Math.max(...dates));
-    const opts = { month:'short', day:'numeric' };
-    if(min.toDateString() === max.toDateString()){
-      return min.toLocaleDateString('en-US', opts) + ', ' + max.getFullYear();
-    }
-    return min.toLocaleDateString('en-US', opts) + ' – ' + max.toLocaleDateString('en-US', opts) + ', ' + max.getFullYear();
-  }
-
-  function sortedEntries(obj){
-    return Object.entries(obj).sort((a,b) => b[1]-a[1]);
-  }
-
-  const WEEKDAYS = [
-    { n:1, abbr:'MON', full:'Monday' },
-    { n:2, abbr:'TUE', full:'Tuesday' },
-    { n:3, abbr:'WED', full:'Wednesday' },
-    { n:4, abbr:'THU', full:'Thursday' },
-    { n:5, abbr:'FRI', full:'Friday' }
-  ];
-
-  // ---------- DEALS MODE (one row per sale — CSV export) ----------
-  function computeDealsStats(rows){
-    const closed = rows.filter(r => r.closer);
-    const fronterCounts = {};
-    const closerCounts = {};
-    let selfClosed = 0;
-
-    closed.forEach(r => {
-      fronterCounts[r.fronter] = (fronterCounts[r.fronter] || 0) + 1;
-      closerCounts[r.closer] = (closerCounts[r.closer] || 0) + 1;
-      if(r.fronter.toLowerCase() === r.closer.toLowerCase() && !isHouse(r.closer)) selfClosed++;
-    });
-
-    const dates = rows.map(r => parseDate(r.createdAt)).filter(Boolean);
-
-    return {
-      closed,
-      fronterCounts, closerCounts,
-      selfClosed,
-      totalFronted: rows.length,
-      totalClosed: closed.length,
-      uniqueFronters: Object.keys(fronterCounts).length,
-      uniqueClosers: Object.keys(closerCounts).length,
-      dates
-    };
-  }
-
-  function computeDayCountsFromDeals(closedRows){
-    const counts = {1:0,2:0,3:0,4:0,5:0};
-    closedRows.forEach(r => {
-      const d = parseDate(r.createdAt);
-      if(!d) return;
-      const wd = d.getDay(); // 0=Sun ... 6=Sat
-      if(counts.hasOwnProperty(wd)) counts[wd]++;
-    });
-    return counts;
-  }
-
-  function computeCloserDayMatrixFromDeals(closedRows){
-    const byCloser = {};
-    closedRows.forEach(r => {
-      const d = parseDate(r.createdAt);
-      if(!d) return;
-      const wd = d.getDay();
-      if(wd < 1 || wd > 5) return;
-      byCloser[r.closer] = byCloser[r.closer] || {1:0,2:0,3:0,4:0,5:0};
-      byCloser[r.closer][wd]++;
-    });
-    return byCloser;
-  }
-
-  function renderTickerDeals(rows){
-    const items = rows.slice().sort((a,b) => (parseDate(b.createdAt)||0) - (parseDate(a.createdAt)||0));
-    if(!items.length){
-      $('tickTrack').innerHTML = '<span class="tick-item">No commercial sales in this file</span>';
-      return;
-    }
-    const piece = items.map(r => `<span class="tick-item"><b>${escapeHtml(r.customer || 'Customer')}</b>${r.state ? ' · ' + escapeHtml(r.state) : ''} — ${escapeHtml(r.fronter)}<span class="arrow">→</span><b>${escapeHtml(r.closer)}</b></span>`).join('');
-    $('tickTrack').innerHTML = piece + piece;
-  }
-
-  function renderDealsMode(){
-    const rows = state.rows;
-    const stats = computeDealsStats(rows);
-
-    $('heroNum').textContent = stats.totalClosed.toLocaleString();
-    $('statFronted').textContent = stats.totalFronted.toLocaleString();
-    $('statFronters').textContent = stats.uniqueFronters.toLocaleString();
-    $('statClosers').textContent = stats.uniqueClosers.toLocaleString();
-    $('statSelf').textContent = stats.selfClosed.toLocaleString();
-    $('statSelfLabel').textContent = 'SELF-CLOSED (FRONT + CLOSE)';
-
-    $('periodLabel').textContent = fmtPeriod(stats.dates);
-    stampUpdated();
-
-    const fronterEntries = sortedEntries(stats.fronterCounts);
-    const closerEntries = sortedEntries(stats.closerCounts);
-
-    renderBoard($('fronterBoard'), fronterEntries);
-    renderBoard($('closerBoard'), closerEntries);
-    $('closerBoard').classList.add('closers');
-
-    $('tickLabel').textContent = 'ALL COMMERCIAL SALES';
-    renderCloserDayTable($('closerDayWrap'), computeCloserDayMatrixFromDeals(stats.closed));
-    renderDayBoard($('dayBoard'), computeDayCountsFromDeals(stats.closed));
-    renderTickerDeals(rows);
-  }
-
-  // ---------- AGGREGATE MODE (rep x day totals — Dashboard tab XLSX) ----------
-  function computeAggregateStats(agg){
-    const fronterCounts = {};
-    const closerCounts = {};
-    const dayCounts = {1:0,2:0,3:0,4:0,5:0}; // business rule: Commercial total counts Closers only
-
-    agg.fronters.forEach(f => {
-      const total = DAY_KEYS.reduce((s,k) => s + (Number(f[k]) || 0), 0);
-      fronterCounts[f.name] = (fronterCounts[f.name] || 0) + total;
-    });
-    agg.closers.forEach(c => {
-      const total = DAY_KEYS.reduce((s,k) => s + (Number(c[k]) || 0), 0);
-      closerCounts[c.name] = (closerCounts[c.name] || 0) + total;
-      DAY_KEYS.forEach((k, i) => { dayCounts[i+1] += Number(c[k]) || 0; });
-    });
-
-    const fronterNames = new Set(Object.keys(fronterCounts).filter(n => fronterCounts[n] > 0));
-    const closerNames = new Set(Object.keys(closerCounts).filter(n => closerCounts[n] > 0));
-    let bothRoles = 0;
-    fronterNames.forEach(n => { if(closerNames.has(n)) bothRoles++; });
-
-    return {
-      fronterCounts, closerCounts, dayCounts,
-      bothRoles,
-      totalClosed: Object.values(closerCounts).reduce((a,b) => a+b, 0),
-      totalFronted: Object.values(fronterCounts).reduce((a,b) => a+b, 0),
-      uniqueFronters: fronterNames.size,
-      uniqueClosers: closerNames.size
-    };
-  }
-
-  function renderTickerAggregate(agg){
-    const items = [];
-    agg.fronters.forEach(f => DAY_KEYS.forEach((k,i) => {
-      const v = Number(f[k]) || 0;
-      if(v > 0) items.push({ name:f.name, role:'Fronter', day:DAY_FULL[i], dayIdx:i, count:v });
-    }));
-    agg.closers.forEach(c => DAY_KEYS.forEach((k,i) => {
-      const v = Number(c[k]) || 0;
-      if(v > 0) items.push({ name:c.name, role:'Closer', day:DAY_FULL[i], dayIdx:i, count:v });
-    }));
-    if(!items.length){
-      $('tickTrack').innerHTML = '<span class="tick-item">No commercial activity logged yet this week</span>';
-      return;
-    }
-    items.sort((a,b) => a.dayIdx - b.dayIdx || b.count - a.count);
-    const piece = items.map(it => `<span class="tick-item"><b>${escapeHtml(it.name)}</b> · ${it.role} — ${it.day} ×${it.count}</span>`).join('');
-    $('tickTrack').innerHTML = piece + piece;
-  }
-
-  function closerDayMatrixFromAggregate(closers){
-    const byCloser = {};
-    const dayNum = {mon:1, tue:2, wed:3, thu:4, fri:5};
-    closers.forEach(c => {
-      byCloser[c.name] = byCloser[c.name] || {1:0,2:0,3:0,4:0,5:0};
-      DAY_KEYS.forEach(k => { byCloser[c.name][dayNum[k]] += Number(c[k]) || 0; });
-    });
-    return byCloser;
-  }
-
-  function renderAggregateMode(){
-    const agg = state.aggregate;
-    const stats = computeAggregateStats(agg);
-
-    $('heroNum').textContent = stats.totalClosed.toLocaleString();
-    $('statFronted').textContent = stats.totalFronted.toLocaleString();
-    $('statFronters').textContent = stats.uniqueFronters.toLocaleString();
-    $('statClosers').textContent = stats.uniqueClosers.toLocaleString();
-    $('statSelf').textContent = stats.bothRoles.toLocaleString();
-    $('statSelfLabel').textContent = 'REPS FRONTING & CLOSING';
-
-    $('periodLabel').textContent = agg.weekLabel || 'This week';
-    stampUpdated();
-
-    const fronterEntries = sortedEntries(stats.fronterCounts);
-    const closerEntries = sortedEntries(stats.closerCounts);
-
-    renderBoard($('fronterBoard'), fronterEntries);
-    renderBoard($('closerBoard'), closerEntries);
-    $('closerBoard').classList.add('closers');
-
-    $('tickLabel').textContent = 'COMMERCIAL ACTIVITY THIS WEEK';
-    renderCloserDayTable($('closerDayWrap'), closerDayMatrixFromAggregate(agg.closers));
-    renderDayBoard($('dayBoard'), stats.dayCounts);
-    renderTickerAggregate(agg);
-  }
-
-  // ---------- shared rendering ----------
-  function stampUpdated(){
-    const now = new Date();
-    $('updatedLabel').textContent = 'Updated ' + now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}) + (state.sourceName ? '  ·  ' + state.sourceName : '');
-  }
-
-  function renderBoard(el, entries, extraClass){
-    const max = entries.length ? entries[0][1] : 1;
-    el.innerHTML = entries.map(([name, count], i) => {
-      const house = isHouse(name);
-      const cls = ['row-item'];
-      if(extraClass) cls.push(extraClass);
-      if(house) cls.push('house');
-      const pct = Math.max(6, Math.round((count/max)*100));
-      return `<div class="${cls.join(' ')}">
-        <div class="rank">${i+1}</div>
-        <div class="row-main">
-          <div class="row-top">
-            <div class="row-name">${escapeHtml(name)}${house ? '<span class="house-tag">· house</span>' : ''}</div>
-            <div class="row-count">${count}</div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
-        </div>
-      </div>`;
-    }).join('') || emptyState('No closed commercial sales yet');
-  }
-
   function emptyState(msg){
     return `<div style="color:var(--muted-2); font-size:13px; padding:14px 2px; line-height:1.5;">${msg}</div>`;
   }
 
-  function renderCloserDayTable(el, byCloser){
-    const names = Object.keys(byCloser);
-    if(!names.length){
-      el.innerHTML = emptyState('No closed commercial sales yet');
-      return;
+  // ---------- parsing the "Commercial" tab ----------
+  // Layout: two header rows, then one row per rep, then a "Total" row. Each of the five
+  // weekday blocks repeats the same six sub-columns (Hrs, Front, Sales, Resi, SPH, MGW) --
+  // located here by finding every "Hrs" cell in the second header row, rather than trusting
+  // the day-name labels in the first header row, because those labels sit on merged cells
+  // that are offset by one column from where each block's data actually starts.
+  function parseCommercialTabAOA(aoa){
+    if(!aoa || aoa.length < 3) return { error: 'empty' };
+    const header0 = aoa[0] || [];
+    const header1 = aoa[1] || [];
+
+    const hrsCols = [];
+    for(let c=2; c<header1.length; c++){
+      if(header1[c] != null && String(header1[c]).trim().toLowerCase() === 'hrs') hrsCols.push(c);
     }
-    const entries = names.map(name => {
-      const days = byCloser[name];
-      const total = WEEKDAYS.reduce((s,w) => s + (days[w.n]||0), 0);
-      return { name, days, total };
-    }).sort((a,b) => b.total - a.total);
+    if(hrsCols.length < 5) return { error: 'no-day-blocks' };
 
-    let maxCell = 1;
-    entries.forEach(e => WEEKDAYS.forEach(w => { if((e.days[w.n]||0) > maxCell) maxCell = e.days[w.n]; }));
+    const blockWidth = hrsCols[1] - hrsCols[0];
+    const fieldNames = [];
+    for(let i=0; i<blockWidth; i++){
+      const label = header1[hrsCols[0] + i];
+      fieldNames.push(label ? String(label).trim().toLowerCase() : null);
+    }
 
-    let html = '<table class="matrix"><thead><tr><th class="corner"></th>';
-    WEEKDAYS.forEach(w => { html += `<th>${w.abbr}</th>`; });
-    html += '<th>Total</th></tr></thead><tbody>';
+    const summaryStart = hrsCols[4] + blockWidth;
+    const summaryLabels = [];
+    for(let c=summaryStart; c<header0.length; c++){
+      const label = header0[c];
+      summaryLabels.push(label ? String(label).trim() : null);
+    }
 
-    entries.forEach(e => {
-      const house = isHouse(e.name);
-      html += `<tr><th>${escapeHtml(e.name)}${house ? ' <span style="color:var(--muted-2)">(house)</span>' : ''}</th>`;
-      WEEKDAYS.forEach(w => {
-        const v = e.days[w.n] || 0;
-        if(v === 0){
-          html += `<td class="empty">·</td>`;
-        } else {
-          const opacity = (0.18 + 0.62*(v/maxCell)).toFixed(2);
-          html += `<td style="background:rgba(253,83,57,${opacity})">${v}</td>`;
-        }
+    const reps = [];
+    let totals = null;
+    for(let r=2; r<aoa.length; r++){
+      const row = aoa[r] || [];
+      const rawName = row[1];
+      if(rawName == null || String(rawName).trim() === '') continue;
+      const label = String(rawName).trim();
+      if(/^training|^admin staff/i.test(label)) break;
+
+      const days = {};
+      DAY_KEYS.forEach((key, di) => {
+        const start = hrsCols[di];
+        const day = {};
+        fieldNames.forEach((fn, i) => { if(fn) day[fn] = row[start + i]; });
+        days[key] = day;
       });
-      html += `<td style="background:transparent; font-weight:700; color:var(--text)">${e.total}</td>`;
-      html += '</tr>';
-    });
-    html += '</tbody></table>';
-    el.innerHTML = html;
-  }
+      const summary = {};
+      summaryLabels.forEach((lbl, i) => { if(lbl) summary[lbl] = row[summaryStart + i]; });
 
-  function renderDayBoard(el, counts){
-    const max = Math.max(1, ...WEEKDAYS.map(w => counts[w.n]));
-    el.innerHTML = WEEKDAYS.map(w => {
-      const c = counts[w.n];
-      const pct = c === 0 ? 0 : Math.max(6, Math.round((c/max)*100));
-      const cls = ['day-col'];
-      if(c > 0 && c === max) cls.push('peak');
-      if(c === 0) cls.push('zero');
-      return `<div class="${cls.join(' ')}">
-        <div class="day-count">${c}</div>
-        <div class="day-bar-wrap"><div class="day-bar" style="height:${pct}%"></div></div>
-        <div class="day-label">${w.abbr}</div>
-      </div>`;
-    }).join('');
-  }
-
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
-
-  function renderAll(){
-    if(state.mode === 'deals') renderDealsMode();
-    else renderAggregateMode();
-  }
-
-  // ---------- CSV parsing (deal-level, energy-forms-export) ----------
-  function parseCSVText(text){
-    const rows = [];
-    let row = [], field = '', inQuotes = false;
-    for(let i=0; i<text.length; i++){
-      const c = text[i];
-      if(inQuotes){
-        if(c === '"'){
-          if(text[i+1] === '"'){ field += '"'; i++; }
-          else inQuotes = false;
-        } else field += c;
-      } else {
-        if(c === '"') inQuotes = true;
-        else if(c === ','){ row.push(field); field=''; }
-        else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
-        else if(c === '\r'){ /* skip */ }
-        else field += c;
-      }
+      if(label.toLowerCase() === 'total'){ totals = { days, summary }; break; }
+      reps.push({ repNum: row[0], name: cleanRepName(rawName), days, summary });
     }
-    if(field.length || row.length){ row.push(field); rows.push(row); }
-    return rows.filter(r => r.length && !(r.length===1 && r[0]===''));
+    if(!reps.length) return { error: 'no-rep-rows' };
+    return { reps, totals };
   }
 
-  function rowsFromCSV(text){
-    const table = parseCSVText(text);
-    if(!table.length) return null;
-    const header = table[0].map(h => h.trim());
-    const idx = name => header.findIndex(h => h.toLowerCase() === name.toLowerCase());
-    const iForm = idx('Form Type'), iFronter = idx('Fronter'), iCloser = idx('Closer'),
-          iCreated = idx('Created At'), iFirst = idx('First Name'), iLast = idx('Last Name'),
-          iState = idx('Service State');
-    if(iForm === -1 || iFronter === -1 || iCloser === -1){
-      return { error: 'missing-columns' };
-    }
-    const out = [];
-    for(let i=1; i<table.length; i++){
-      const r = table[i];
-      if(!r || r.length < 2) continue;
-      const formType = (r[iForm] || '').trim().toLowerCase();
-      if(formType !== 'commercial') continue;
-      const fronter = (r[iFronter] || '').trim();
-      const closer = (r[iCloser] || '').trim();
-      if(!fronter && !closer) continue;
-      const first = iFirst > -1 ? (r[iFirst]||'').trim() : '';
-      const last = iLast > -1 ? (r[iLast]||'').trim() : '';
-      const titleCase = s => s.replace(/\w\S*/g, w => w[0].toUpperCase()+w.slice(1).toLowerCase());
-      out.push({
-        fronter, closer,
-        createdAt: iCreated > -1 ? (r[iCreated]||'').trim() : '',
-        customer: titleCase((first+' '+last).trim()),
-        state: iState > -1 ? (r[iState]||'').trim() : ''
-      });
-    }
-    return { rows: out };
-  }
-
-  // ---------- XLSX parsing (aggregate, Commercial Day Stat "Dashboard" tab) ----------
   function weekLabelFromFilename(name){
     const m = name.match(/(\d{1,2})[_\-](\d{1,2})[_\-](\d{2,4})/);
     if(!m) return null;
@@ -949,46 +523,162 @@
     return 'Week of ' + d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
   }
 
-  function parseDashboardAOA(aoa){
-    if(!aoa || aoa.length < 2) return { error: 'empty' };
-    const header1 = aoa[0] || [];
-    let commStart = -1;
-    for(let i=0; i<header1.length; i++){
-      if(header1[i] && String(header1[i]).trim().toLowerCase() === 'commercial'){ commStart = i; break; }
-    }
-    if(commStart === -1) return { error: 'no-commercial-block' };
-
-    let section = null;
-    const fronters = [], closers = [];
-    for(let r=1; r<aoa.length; r++){
-      const row = aoa[r] || [];
-      const label = row[1] != null ? String(row[1]).trim().toUpperCase() : '';
-      if(label === 'FRONTERS'){ section = 'fronters'; continue; }
-      if(label === 'CLOSERS'){ section = 'closers'; continue; }
-      if(label === 'TOTAL'){ break; }
-      if(section && row[1]){
-        const name = cleanRepName(row[1]);
-        if(!name) continue;
-        const vals = [0,1,2,3,4].map(k => Number(row[commStart+k]) || 0);
-        const entry = { name, mon:vals[0], tue:vals[1], wed:vals[2], thu:vals[3], fri:vals[4] };
-        (section === 'fronters' ? fronters : closers).push(entry);
-      }
-    }
-    if(!fronters.length && !closers.length) return { error: 'no-rep-rows' };
-    return { fronters, closers };
-  }
-
   function parseXLSXWorkbook(arrayBuffer, filename){
     const wb = XLSX.read(arrayBuffer, { type:'array' });
-    let sheetName = wb.SheetNames.find(n => n.trim().toLowerCase() === 'dashboard');
-    if(!sheetName) sheetName = wb.SheetNames.find(n => /dashboard/i.test(n));
-    if(!sheetName) return { error: 'no-dashboard-tab', sheets: wb.SheetNames };
-    const ws = wb.Sheets[sheetName];
-    const aoa = XLSX.utils.sheet_to_json(ws, { header:1, defval:null, raw:true });
-    const result = parseDashboardAOA(aoa);
+    const sheetName = wb.SheetNames.find(n => n.trim().toLowerCase() === 'commercial');
+    if(!sheetName) return { error: 'no-commercial-tab', sheets: wb.SheetNames };
+    const aoa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { header:1, defval:null, raw:true });
+    const result = parseCommercialTabAOA(aoa);
     if(result.error) return result;
     result.weekLabel = weekLabelFromFilename(filename);
     return result;
+  }
+
+  // ---------- hero stats ----------
+  function computeHero(commercial){
+    const t = commercial.totals || { days:{}, summary:{} };
+    const closed = num(t.summary['TOTAL WK']) || 0;
+    const fronted = DAY_KEYS.reduce((s,k) => s + (num((t.days[k]||{}).front) || 0), 0);
+    const activeAgents = commercial.reps.filter(r =>
+      (num(r.summary['Total Hrs']) || 0) > 0 || (num(r.summary['TOTAL WK']) || 0) > 0
+    ).length;
+    const totalHrs = num(t.summary['Total Hrs']) || 0;
+    const teamSph = num(t.summary['SPH']);
+    return { closed, fronted, activeAgents, totalHrs, teamSph };
+  }
+
+  function stampUpdated(){
+    const now = new Date();
+    $('updatedLabel').textContent = 'Updated ' + now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}) + (state.sourceName ? '  ·  ' + state.sourceName : '');
+  }
+
+  // ---------- the cloned Commercial table ----------
+  function renderCloneTable(el, commercial){
+    if(!commercial || !commercial.reps || !commercial.reps.length){
+      el.innerHTML = emptyState('No Commercial-tab data yet — drop a Commercial Day Stat XLSX to populate this table');
+      return;
+    }
+
+    const reps = commercial.reps.slice().sort((a,b) => {
+      const aw = num(a.summary['TOTAL WK']) || 0, bw = num(b.summary['TOTAL WK']) || 0;
+      if(bw !== aw) return bw - aw;
+      return (num(b.summary['SPH']) || 0) - (num(a.summary['SPH']) || 0);
+    });
+
+    let maxSales = 1, maxSph = 0.01;
+    reps.forEach(r => DAY_KEYS.forEach(k => {
+      const d = r.days[k] || {};
+      if(num(d.sales) > maxSales) maxSales = num(d.sales);
+      if(num(d.sph) > maxSph) maxSph = num(d.sph);
+    }));
+
+    let html = '<table class="clone"><thead>';
+    html += '<tr class="grp"><th rowspan="2" style="text-align:left">Rep</th>';
+    DAY_KEYS.forEach(k => { html += `<th class="day-hdr divider" colspan="4">${DAY_ABBR[k]}</th>`; });
+    html += '<th class="divider" colspan="6">Week</th></tr>';
+    html += '<tr class="sub">';
+    DAY_KEYS.forEach(() => { html += '<th class="divider">Hrs</th><th>Front</th><th>Sales</th><th>SPH</th>'; });
+    html += '<th class="divider">Total</th><th>Bad TPV</th><th>Hrs</th><th>SPH</th><th>Last Wk</th><th>Diff</th>';
+    html += '</tr></thead><tbody>';
+
+    const fmt1 = v => (v == null ? null : (Math.round(v*100)/100).toString().replace(/(\.\d)0$/,'$1'));
+
+    reps.forEach(r => {
+      html += `<tr><th>${escapeHtml(r.name)}</th>`;
+      DAY_KEYS.forEach(k => {
+        const d = r.days[k] || {};
+        const hrs = num(d.hrs), front = num(d.front), sales = num(d.sales), sph = num(d.sph);
+        html += `<td class="mono divider">${hrs == null ? '—' : fmt1(hrs)}</td>`;
+        html += front ? `<td>${front}</td>` : `<td class="empty">·</td>`;
+        if(sales){
+          const opacity = (0.18 + 0.62*(sales/maxSales)).toFixed(2);
+          html += `<td style="background:rgba(253,83,57,${opacity}); font-weight:700; color:var(--text)">${sales}</td>`;
+        } else {
+          html += `<td class="empty">·</td>`;
+        }
+        if(sph){
+          const opacity = (0.18 + 0.62*(sph/maxSph)).toFixed(2);
+          html += `<td style="background:rgba(253,83,57,${opacity})">${sph.toFixed(2)}</td>`;
+        } else {
+          html += `<td class="empty">·</td>`;
+        }
+      });
+      const s = r.summary;
+      const badTpv = num(s['BAD TPV']);
+      const diff = num(s['Difference']);
+      const diffCls = diff > 0 ? 'up' : (diff < 0 ? 'down' : 'mono');
+      html += `<td class="hi divider">${s['TOTAL WK'] != null ? s['TOTAL WK'] : 0}</td>`;
+      html += `<td class="${badTpv ? 'down hi' : 'empty'}">${badTpv ? badTpv : '·'}</td>`;
+      html += `<td class="mono">${num(s['Total Hrs']) != null ? fmt1(num(s['Total Hrs'])) : '—'}</td>`;
+      html += `<td class="hi">${num(s['SPH']) != null ? num(s['SPH']).toFixed(2) : '—'}</td>`;
+      html += `<td class="mono">${s['Last Week'] != null ? s['Last Week'] : '—'}</td>`;
+      html += `<td class="${diffCls}">${diff != null ? (diff>0?'+':'') + diff : '—'}</td>`;
+      html += '</tr>';
+    });
+    html += '</tbody>';
+
+    if(commercial.totals){
+      const t = commercial.totals;
+      html += '<tfoot><tr><th style="text-align:left">Team Total</th>';
+      DAY_KEYS.forEach(k => {
+        const d = t.days[k] || {};
+        html += `<td class="divider">${num(d.hrs) != null ? fmt1(num(d.hrs)) : '—'}</td>`;
+        html += `<td>${d.front != null ? d.front : '—'}</td>`;
+        html += `<td>${d.sales != null ? d.sales : '—'}</td>`;
+        html += `<td>${num(d.sph) != null ? num(d.sph).toFixed(2) : '—'}</td>`;
+      });
+      const s = t.summary;
+      const diff = num(s['Difference']);
+      html += `<td class="divider">${s['TOTAL WK'] != null ? s['TOTAL WK'] : '—'}</td>`;
+      html += `<td>${s['BAD TPV'] != null ? s['BAD TPV'] : '·'}</td>`;
+      html += `<td>${num(s['Total Hrs']) != null ? fmt1(num(s['Total Hrs'])) : '—'}</td>`;
+      html += `<td>${num(s['SPH']) != null ? num(s['SPH']).toFixed(2) : '—'}</td>`;
+      html += `<td>${s['Last Week'] != null ? s['Last Week'] : '—'}</td>`;
+      html += `<td>${diff != null ? (diff>0?'+':'') + diff : '—'}</td>`;
+      html += '</tr></tfoot>';
+    }
+
+    html += '</table>';
+    el.innerHTML = html;
+  }
+
+  // ---------- ticker ----------
+  function renderTicker(commercial){
+    const items = [];
+    commercial.reps.forEach(r => DAY_KEYS.forEach(k => {
+      const d = r.days[k] || {};
+      const sales = num(d.sales) || 0;
+      const front = num(d.front) || 0;
+      const dayIdx = DAY_KEYS.indexOf(k);
+      if(sales > 0) items.push({ name:r.name, role:'Closed', day:DAY_FULL[k], dayIdx, count:sales });
+      if(front > 0) items.push({ name:r.name, role:'Fronted', day:DAY_FULL[k], dayIdx, count:front });
+    }));
+    if(!items.length){
+      $('tickTrack').innerHTML = '<span class="tick-item">No commercial activity logged yet this week</span>';
+      return;
+    }
+    items.sort((a,b) => a.dayIdx - b.dayIdx || b.count - a.count);
+    const piece = items.map(it => `<span class="tick-item"><b>${escapeHtml(it.name)}</b> · ${it.role} — ${it.day} ×${it.count}</span>`).join('');
+    $('tickTrack').innerHTML = piece + piece;
+  }
+
+  // ---------- render everything ----------
+  function renderAll(){
+    const commercial = state.commercial;
+    const hero = computeHero(commercial);
+
+    $('heroNum').textContent = hero.closed.toLocaleString();
+    $('statFronted').textContent = hero.fronted.toLocaleString();
+    $('statFronters').textContent = hero.activeAgents.toLocaleString();
+    $('statClosers').textContent = hero.totalHrs.toFixed(1);
+    $('statSelf').textContent = hero.teamSph != null ? hero.teamSph.toFixed(2) : '—';
+
+    $('periodLabel').textContent = commercial.weekLabel || 'This week';
+    stampUpdated();
+
+    renderCloneTable($('cloneWrap'), commercial);
+    $('tickLabel').textContent = 'COMMERCIAL ACTIVITY THIS WEEK';
+    renderTicker(commercial);
   }
 
   // ---------- toast ----------
@@ -1001,29 +691,6 @@
     toastTimer = setTimeout(() => t.classList.remove('show'), 3600);
   }
 
-  function handleCSVFile(file){
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const result = rowsFromCSV(ev.target.result);
-      if(!result || result.error){
-        showToast('Unrecognized file — expected an energy-forms-export CSV');
-        return;
-      }
-      if(!result.rows.length){
-        showToast('No commercial rows found in ' + file.name);
-        return;
-      }
-      state.mode = 'deals';
-      state.rows = result.rows;
-      state.sourceName = file.name + ' (manual)';
-      lastGithubHash = null; // force a resync from GitHub on the next poll
-      renderAll();
-      showToast(`Updated — ${result.rows.length} commercial sale${result.rows.length===1?'':'s'} loaded from ${file.name}`);
-    };
-    reader.onerror = () => showToast('Could not read that file');
-    reader.readAsText(file);
-  }
-
   function handleXLSXFile(file){
     if(typeof XLSX === 'undefined'){
       showToast('Spreadsheet reader failed to load — check your connection and try again');
@@ -1034,21 +701,20 @@
       try{
         const data = new Uint8Array(ev.target.result);
         const result = parseXLSXWorkbook(data, file.name);
-        if(result.error === 'no-dashboard-tab'){
-          showToast(`No "Dashboard" tab found in ${file.name} (found: ${result.sheets.join(', ')})`);
+        if(result.error === 'no-commercial-tab'){
+          showToast(`No "Commercial" tab found in ${file.name} (found: ${result.sheets.join(', ')})`);
           return;
         }
         if(result.error){
-          showToast(`Couldn't find the rep table on the Dashboard tab of ${file.name}`);
+          showToast(`Couldn't find the rep table on the Commercial tab of ${file.name}`);
           return;
         }
-        state.mode = 'aggregate';
-        state.aggregate = { fronters: result.fronters, closers: result.closers, weekLabel: result.weekLabel };
+        state.commercial = { reps: result.reps, totals: result.totals, weekLabel: result.weekLabel };
         state.sourceName = file.name + ' (manual)';
         lastGithubHash = null; // force a resync from GitHub on the next poll
         renderAll();
-        const totalClosed = result.closers.reduce((s,c) => s + DAY_KEYS.reduce((a,k) => a + (Number(c[k])||0), 0), 0);
-        showToast(`Updated — Dashboard tab loaded from ${file.name} (${totalClosed} closed sale${totalClosed===1?'':'s'} this week)`);
+        const closed = num(result.totals && result.totals.summary['TOTAL WK']) || 0;
+        showToast(`Updated — Commercial tab loaded from ${file.name} (${closed} closed sale${closed===1?'':'s'} this week)`);
       } catch(err){
         showToast('Could not read that spreadsheet');
       }
@@ -1059,9 +725,8 @@
 
   function handleFile(file){
     const lower = file.name.toLowerCase();
-    if(lower.endsWith('.csv')) handleCSVFile(file);
-    else if(lower.endsWith('.xlsx') || lower.endsWith('.xls')) handleXLSXFile(file);
-    else showToast('Please drop a .csv export or a Commercial Day Stat .xlsx file');
+    if(lower.endsWith('.xlsx') || lower.endsWith('.xls')) handleXLSXFile(file);
+    else showToast('Please drop a Commercial Day Stat .xlsx file');
   }
 
   // ---------- drag & drop ----------
@@ -1132,14 +797,13 @@
       const buf = await res.arrayBuffer();
       const result = parseXLSXWorkbook(new Uint8Array(buf), GITHUB_SOURCE.path.split('/').pop());
       if(result.error){
-        setSyncStatus(false, 'Could not read the workbook at that path — check it still has a Dashboard tab');
+        setSyncStatus(false, 'Could not read the workbook at that path — check it still has a Commercial tab');
         return;
       }
-      const hash = JSON.stringify(result.fronters) + '|' + JSON.stringify(result.closers);
+      const hash = JSON.stringify(result.reps) + '|' + JSON.stringify(result.totals);
       if(hash !== lastGithubHash){
         lastGithubHash = hash;
-        state.mode = 'aggregate';
-        state.aggregate = { fronters: result.fronters, closers: result.closers, weekLabel: result.weekLabel };
+        state.commercial = { reps: result.reps, totals: result.totals, weekLabel: result.weekLabel };
         state.sourceName = GITHUB_SOURCE.path.split('/').pop();
         renderAll();
       }
