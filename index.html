@@ -410,7 +410,7 @@
   </div>
 
   <div class="panel clone-panel">
-    <h2>Commercial <span class="tag">cloned from the Commercial tab — Hrs / Front / Sales / SPH per day, per rep</span></h2>
+    <h2>Commercial <span class="tag">cloned from the Commercial tab — Front / Sales per day, per rep (plus Hrs / SPH when the workbook tracks them)</span></h2>
     <div class="clone-wrap" id="cloneWrap"></div>
   </div>
 
@@ -434,13 +434,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
   // ---------- default dataset ----------
-  // Cloned from the "Commercial" tab of Commercial_Day_Stat_09.14.26_09.18.26.xlsx.
-  // That tab is the authoritative per-rep source (Hrs / Front / Sales / SPH per day,
-  // plus Bad TPV and week totals) -- unlike the old "Dashboard" tab, which had a
-  // history of #REF! breakage in its Closers block.
-  const DEFAULT_COMMERCIAL = Object.assign({ weekLabel: 'Week of Sep 14, 2026' }, {"reps": [{"name": "Raven Mitchell", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7.5, "front": null, "sales": 1, "resi": null, "sph": 0.13333333333333333, "mgw": null}, "wed": {"hrs": 6.75, "front": 3, "sales": 3, "resi": null, "sph": 0.4444444444444444, "mgw": null}, "thu": {"hrs": 6.75, "front": 2, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 1, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 4, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 4, "Last Week": 4, "Difference": 0, "Total Hrs": 35.5, "SPH": 0.11267605633802817, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Jakarta Hunter", "days": {"mon": {"hrs": 7, "front": null, "sales": 1, "resi": null, "sph": 0.14285714285714285, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 8, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 3.15, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 1, "Difference": 0, "Total Hrs": 32.9, "SPH": 0.030395136778115502, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Luis Buitrago", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 6.75, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.75, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 1, "Difference": -1, "Total Hrs": 35.5, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Allen Alberts", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.25, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 6.25, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 4, "Difference": -4, "Total Hrs": 35, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Kenticka Tate", "days": {"mon": {"hrs": 8, "front": null, "sales": 2, "resi": null, "sph": 0.25, "mgw": null}, "tue": {"hrs": 8, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.25, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": 1, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}, "fri": {"hrs": 7.75, "front": 2, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}}, "summary": {"Total COMP": 4, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 4, "Last Week": 4, "Difference": 0, "Total Hrs": 38.75, "SPH": 0.1032258064516129, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Brandy Paton", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7.5, "front": null, "sales": 1, "resi": null, "sph": 0.13333333333333333, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.75, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 1, "Difference": 0, "Total Hrs": 36.25, "SPH": 0.027586206896551724, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Ashlee Franks", "days": {"mon": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 6.75, "front": 4, "sales": 4, "resi": null, "sph": 0.5925925925925926, "mgw": null}, "thu": {"hrs": 6.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 6, "front": 0, "sales": 1, "resi": null, "sph": 0.16666666666666666, "mgw": null}}, "summary": {"Total COMP": 5, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 5, "Last Week": 0, "Difference": 5, "Total Hrs": 32.25, "SPH": 0.15503875968992248, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Shelby Lewis", "days": {"mon": {"hrs": 7, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 7, "front": null, "sales": 1, "resi": null, "sph": 0.14285714285714285, "mgw": null}, "wed": {"hrs": 7.5, "front": 2, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.75, "front": 1, "sales": 1, "resi": null, "sph": 0.12903225806451613, "mgw": null}, "fri": {"hrs": 7.5, "front": 1, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 2, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 2, "Last Week": 1, "Difference": 1, "Total Hrs": 36.75, "SPH": 0.05442176870748299, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Albert Williams", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 6.5, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 6.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 0, "Last Week": 1, "Difference": -1, "Total Hrs": 27.5, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Abigail Gambino", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 0, "front": null, "sales": 1, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 0, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 5, "Difference": -4, "Total Hrs": 0, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "CJ Jackson", "days": {"mon": {"hrs": 0, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "tue": {"hrs": 0, "front": null, "sales": 1, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 0, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 0, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 1, "Last Week": 0, "Difference": 1, "Total Hrs": 0, "SPH": 0, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Neil Singhal", "days": {"mon": {"hrs": 8, "front": null, "sales": 2, "resi": null, "sph": 0.25, "mgw": null}, "tue": {"hrs": 8, "front": null, "sales": null, "resi": null, "sph": 0, "mgw": null}, "wed": {"hrs": 7.25, "front": 0, "sales": null, "resi": null, "sph": 0, "mgw": null}, "thu": {"hrs": 7.5, "front": null, "sales": 0, "resi": null, "sph": 0, "mgw": null}, "fri": {"hrs": 7.5, "front": 0, "sales": 0, "resi": null, "sph": 0, "mgw": null}}, "summary": {"Total COMP": 2, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 2, "Last Week": 5, "Difference": -3, "Total Hrs": 38.25, "SPH": 0.05228758169934641, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}], "totals": {"days": {"mon": {"hrs": 64.5, "front": 0, "sales": 5, "resi": null, "sph": 0.07751937984496124, "mgw": 0}, "tue": {"hrs": 72, "front": 0, "sales": 5, "resi": null, "sph": 0.06944444444444445, "mgw": 0}, "wed": {"hrs": 72, "front": 9, "sales": 7, "resi": null, "sph": 0.09722222222222222, "mgw": 0}, "thu": {"hrs": 71.5, "front": 4, "sales": 2, "resi": null, "sph": 0.027972027972027972, "mgw": 0}, "fri": {"hrs": 68.65, "front": 4, "sales": 2, "resi": null, "sph": 0.0291332847778587, "mgw": 0}}, "summary": {"Total COMP": 21, "BAD TPV": null, "TOTAL RESI": 0, "TOTAL WK": 21, "Last Week": 15, "Difference": 6, "Total Hrs": 348.65, "SPH": 0.060232324680912094, "MWH Total": 0, "Program": "ELIGO", "Manager": "CJ"}}});
+  // Cloned from the "Commercial" tab of Commercial_Day_Stat.xlsx (week of Sep 21, 2026).
+  // That tab is the authoritative per-rep source -- unlike the old "Dashboard" tab, which
+  // had a history of #REF! breakage in its Closers block. Some weeks' workbooks add an
+  // Hrs/Resi/SPH/MGW breakdown per day; this week's doesn't, so those fields are null here
+  // and the table shows "—" for them. See parseCommercialTabAOA (rich format) and
+  // parseClassicCommercialAOA (this Front/Sales-only fallback) below.
+  const DEFAULT_COMMERCIAL = Object.assign({ weekLabel: 'Week of Sep 21, 2026' }, {"reps": [{"name": "Abigail Gambino", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": 1, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL WK": 1, "Total Hrs": null, "SPH": null, "Last Week": 5, "Difference": -4, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Albert Williams", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 1, "Difference": -1, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Allen Alberts", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 4, "Difference": -4, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Ashlee Franks", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 0, "Difference": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Brandy Paton", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": 1, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL WK": 1, "Total Hrs": null, "SPH": null, "Last Week": 1, "Difference": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "CJ Jackson", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": 1, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 1, "BAD TPV": null, "TOTAL WK": 1, "Total Hrs": null, "SPH": null, "Last Week": 0, "Difference": 1, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Jakarta Hunter", "days": {"mon": {"hrs": null, "front": 1, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 1, "Difference": 0, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Kenticka Tate", "days": {"mon": {"hrs": null, "front": 2, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 4, "Difference": -2, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Luis Buitrago", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 1, "Difference": -1, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Neil Singhal", "days": {"mon": {"hrs": null, "front": null, "sales": 2, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 2, "BAD TPV": null, "TOTAL WK": 2, "Total Hrs": null, "SPH": null, "Last Week": 5, "Difference": -3, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Raven Mitchell", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": 1, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 4, "Difference": -3, "Program": "ELIGO", "Manager": "CJ"}}, {"name": "Shelby Lewis", "days": {"mon": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": 1, "sales": null, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": null, "sales": null, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 0, "BAD TPV": null, "TOTAL WK": 0, "Total Hrs": null, "SPH": null, "Last Week": 1, "Difference": 0, "Program": "ELIGO", "Manager": "CJ"}}], "totals": {"days": {"mon": {"hrs": null, "front": 3, "sales": 2, "resi": null, "sph": null, "mgw": null}, "tue": {"hrs": null, "front": 2, "sales": 3, "resi": null, "sph": null, "mgw": null}, "wed": {"hrs": null, "front": 0, "sales": 0, "resi": null, "sph": null, "mgw": null}, "thu": {"hrs": null, "front": 0, "sales": 0, "resi": null, "sph": null, "mgw": null}, "fri": {"hrs": null, "front": 0, "sales": 0, "resi": null, "sph": null, "mgw": null}}, "summary": {"Total COMP": 5, "BAD TPV": null, "TOTAL WK": 5, "Total Hrs": null, "SPH": null, "Last Week": 15, "Difference": -10, "Program": "ELIGO", "Manager": "CJ"}}});
 
-  const state = { commercial: DEFAULT_COMMERCIAL, sourceName: 'Commercial_Day_Stat_09.14.26_09.18.26.xlsx' };
+  const state = { commercial: DEFAULT_COMMERCIAL, sourceName: 'Commercial_Day_Stat.xlsx' };
 
   const $ = id => document.getElementById(id);
   const DAY_KEYS = ['mon','tue','wed','thu','fri'];
@@ -513,6 +515,125 @@
     return { reps, totals };
   }
 
+  // ---------- fallback: classic "Commercial" tab layout ----------
+  // Some weeks' workbooks don't carry the Hrs/Resi/SPH/MGW breakdown above -- just a
+  // single header row (Rep #, Rep Name, Monday..Friday, Total COMP, BAD TPV, TOTAL WK,
+  // Last Week, Difference, Program, Manager, MWH Total) with two stacked blocks labeled
+  // "Fronters" and "Closers", each holding one Mon-Fri count per rep. This reconstructs
+  // the same {reps, totals} shape from that layout -- Front comes from the Fronters
+  // block, Sales from the Closers block (per the "only closer sales count" rule), and
+  // Hrs/Resi/SPH/MGW are left null since this layout doesn't track them.
+  function findHeaderCol(header, name){
+    const idx = header.findIndex(h => h != null && String(h).trim().toLowerCase() === name.toLowerCase());
+    return idx === -1 ? null : idx;
+  }
+
+  function parseClassicCommercialAOA(aoa){
+    if(!aoa || aoa.length < 3) return { error: 'empty' };
+    const header = aoa[0] || [];
+    const iName = findHeaderCol(header, 'Rep Name');
+    const dayCols = ['Monday','Tuesday','Wednesday','Thursday','Friday'].map(n => findHeaderCol(header, n));
+    if(iName == null || dayCols.some(c => c == null)) return { error: 'no-day-blocks' };
+    const iBadTpv = findHeaderCol(header, 'BAD TPV');
+    const iTotalWk = findHeaderCol(header, 'TOTAL WK');
+    const iLastWeek = findHeaderCol(header, 'Last Week');
+    const iDiff = findHeaderCol(header, 'Difference');
+
+    let section = null;
+    const fronterRows = {}, closerRows = {}, fronterExtra = {}, closerExtra = {};
+    let fronterTotalRow = null, closerTotalRow = null;
+
+    for(let r=1; r<aoa.length; r++){
+      const row = aoa[r] || [];
+      const label = row[1] != null ? String(row[1]).trim() : '';
+      const lowLabel = label.toLowerCase();
+      if(lowLabel === 'fronters'){ section = 'fronters'; continue; }
+      if(lowLabel === 'closers'){ section = 'closers'; continue; }
+      if(/^training/i.test(label) || /^admin staff/i.test(label)){ section = null; continue; }
+      if(lowLabel === String(header[iName]).trim().toLowerCase()) continue; // repeated header row inside a block
+      if(!section) continue;
+      if(lowLabel === 'total'){
+        const days = {};
+        dayCols.forEach((c,i) => { days[DAY_KEYS[i]] = row[c]; });
+        const totalRow = {
+          days,
+          totalWk: iTotalWk != null ? row[iTotalWk] : null,
+          badTpv: iBadTpv != null ? row[iBadTpv] : null,
+          lastWeek: iLastWeek != null ? row[iLastWeek] : null,
+          diff: iDiff != null ? row[iDiff] : null
+        };
+        if(section === 'fronters') fronterTotalRow = totalRow; else closerTotalRow = totalRow;
+        section = null;
+        continue;
+      }
+      if(!row[iName]) continue;
+      const name = cleanRepName(row[iName]);
+      const days = {};
+      dayCols.forEach((c,i) => { days[DAY_KEYS[i]] = row[c]; });
+      const extra = {
+        lastWeek: iLastWeek != null ? row[iLastWeek] : null,
+        badTpv: iBadTpv != null ? row[iBadTpv] : null,
+        diff: iDiff != null ? row[iDiff] : null
+      };
+      if(section === 'fronters'){ fronterRows[name] = days; fronterExtra[name] = extra; }
+      else { closerRows[name] = days; closerExtra[name] = extra; }
+    }
+
+    const names = new Set([...Object.keys(fronterRows), ...Object.keys(closerRows)]);
+    if(!names.size) return { error: 'no-rep-rows' };
+
+    const reps = Array.from(names).map(name => {
+      const days = {};
+      DAY_KEYS.forEach(k => {
+        const front = fronterRows[name] ? num(fronterRows[name][k]) : null;
+        const sales = closerRows[name] ? num(closerRows[name][k]) : null;
+        days[k] = { hrs: null, front, sales, resi: null, sph: null, mgw: null };
+      });
+      const salesTotal = DAY_KEYS.reduce((s,k) => s + (num(days[k].sales) || 0), 0);
+      const extra = closerExtra[name] || fronterExtra[name] || {};
+      return {
+        name,
+        days,
+        summary: {
+          'Total COMP': salesTotal,
+          'BAD TPV': num(extra.badTpv),
+          'TOTAL WK': salesTotal,
+          'Total Hrs': null,
+          'SPH': null,
+          'Last Week': extra.lastWeek != null ? extra.lastWeek : null,
+          'Difference': extra.diff != null ? num(extra.diff) : null,
+          Program: 'ELIGO', Manager: 'CJ'
+        }
+      };
+    });
+
+    const totalDays = {};
+    DAY_KEYS.forEach(k => {
+      const front = fronterTotalRow ? num(fronterTotalRow.days[k]) : null;
+      const sales = closerTotalRow ? num(closerTotalRow.days[k]) : null;
+      totalDays[k] = { hrs: null, front, sales, resi: null, sph: null, mgw: null };
+    });
+    const closedTotal = closerTotalRow
+      ? num(closerTotalRow.totalWk)
+      : reps.reduce((s,r) => s + (num(r.summary['TOTAL WK']) || 0), 0);
+
+    const totals = {
+      days: totalDays,
+      summary: {
+        'Total COMP': closedTotal,
+        'BAD TPV': closerTotalRow ? num(closerTotalRow.badTpv) : null,
+        'TOTAL WK': closedTotal,
+        'Total Hrs': null,
+        'SPH': null,
+        'Last Week': closerTotalRow ? closerTotalRow.lastWeek : null,
+        'Difference': closerTotalRow ? num(closerTotalRow.diff) : null,
+        Program: 'ELIGO', Manager: 'CJ'
+      }
+    };
+
+    return { reps, totals };
+  }
+
   function weekLabelFromFilename(name){
     const m = name.match(/(\d{1,2})[_\-](\d{1,2})[_\-](\d{2,4})/);
     if(!m) return null;
@@ -528,7 +649,12 @@
     const sheetName = wb.SheetNames.find(n => n.trim().toLowerCase() === 'commercial');
     if(!sheetName) return { error: 'no-commercial-tab', sheets: wb.SheetNames };
     const aoa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { header:1, defval:null, raw:true });
-    const result = parseCommercialTabAOA(aoa);
+    let result = parseCommercialTabAOA(aoa);
+    if(result.error === 'no-day-blocks'){
+      // This week's workbook doesn't have the Hrs/Resi/SPH/MGW breakdown -- fall back to
+      // the classic Fronters/Closers Mon-Fri layout instead of failing outright.
+      result = parseClassicCommercialAOA(aoa);
+    }
     if(result.error) return result;
     result.weekLabel = weekLabelFromFilename(filename);
     return result;
@@ -539,10 +665,13 @@
     const t = commercial.totals || { days:{}, summary:{} };
     const closed = num(t.summary['TOTAL WK']) || 0;
     const fronted = DAY_KEYS.reduce((s,k) => s + (num((t.days[k]||{}).front) || 0), 0);
-    const activeAgents = commercial.reps.filter(r =>
-      (num(r.summary['Total Hrs']) || 0) > 0 || (num(r.summary['TOTAL WK']) || 0) > 0
-    ).length;
-    const totalHrs = num(t.summary['Total Hrs']) || 0;
+    const activeAgents = commercial.reps.filter(r => {
+      const hasHrs = (num(r.summary['Total Hrs']) || 0) > 0;
+      const hasSales = (num(r.summary['TOTAL WK']) || 0) > 0;
+      const hasFront = DAY_KEYS.some(k => (num((r.days[k]||{}).front) || 0) > 0);
+      return hasHrs || hasSales || hasFront;
+    }).length;
+    const totalHrs = num(t.summary['Total Hrs']); // null when this workbook doesn't track hours
     const teamSph = num(t.summary['SPH']);
     return { closed, fronted, activeAgents, totalHrs, teamSph };
   }
@@ -670,7 +799,7 @@
     $('heroNum').textContent = hero.closed.toLocaleString();
     $('statFronted').textContent = hero.fronted.toLocaleString();
     $('statFronters').textContent = hero.activeAgents.toLocaleString();
-    $('statClosers').textContent = hero.totalHrs.toFixed(1);
+    $('statClosers').textContent = hero.totalHrs != null ? hero.totalHrs.toFixed(1) : '—';
     $('statSelf').textContent = hero.teamSph != null ? hero.teamSph.toFixed(2) : '—';
 
     $('periodLabel').textContent = commercial.weekLabel || 'This week';
